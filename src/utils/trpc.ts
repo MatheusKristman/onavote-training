@@ -1,6 +1,6 @@
 import { httpBatchLink } from "@trpc/client";
 import { createTRPCNext } from "@trpc/next";
-import type { AppRouter } from "../server/routers/_app";
+import type { AppRouter } from "../backend/router";
 import superjson from "superjson";
 import { uneval } from "devalue";
 import type { DataTransformer } from "./types/DataTransformer";
