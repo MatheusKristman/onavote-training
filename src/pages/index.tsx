@@ -1,16 +1,14 @@
 import { prisma } from "../db/client";
+import { trpc } from "../utils/trpc";
 
 export default function Home(props: any) {
-  return (
-    <main>
-      <p className="text-2xl font-bold">
-        Get started by editing&nbsp;
-        <code>pages/index.tsx</code>
-      </p>
+  const { data, isLoading } = trpc.hello.useQuery({ text: "hello" });
 
-      <code>{props.questions}</code>
-    </main>
-  );
+  if (isLoading || !data) {
+    return <div>Loading...</div>;
+  }
+
+  return <div>{data?.greeting}</div>;
 }
 
 export const getServerSideProps = async () => {
