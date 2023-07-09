@@ -1,18 +1,19 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { nanoid } from "nanoid";
 
 export function middleware(req: NextRequest) {
-  if (req.cookies.get("userCookie")) {
+  if (req.cookies.get("poll-token")) {
     return;
   }
 
-  const random = Math.random().toString();
+  const random = nanoid();
 
   console.log("Request", req.cookies);
 
   const res = NextResponse.next();
 
-  res.cookies.set("userCookie", random, { sameSite: "strict" });
+  res.cookies.set("poll-token", random, { sameSite: "strict" });
 
   return res;
 }
