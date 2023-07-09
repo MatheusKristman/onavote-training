@@ -14,12 +14,13 @@ export const questionRouter = router({
     });
   }),
   create: procedure
-    .input(z.object({ question: z.string().min(5).max(600) }))
+    .input(z.object({ question: z.string().min(5).max(600), ownerToken: z.string() }))
     .mutation(async (opts) => {
       return await prisma.pollQuestion.create({
         data: {
           question: opts.input.question,
           options: [],
+          ownerToken: opts.input.ownerToken,
         },
       });
     }),

@@ -1,6 +1,11 @@
-import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export function middleware(req: NextRequest, ev: NextFetchEvent) {
+export function middleware(req: NextRequest) {
+  if (req.cookies.get("userCookie")) {
+    return;
+  }
+
   const random = Math.random().toString();
 
   console.log("Request", req.cookies);

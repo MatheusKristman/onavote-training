@@ -27,7 +27,7 @@ const QuestionCreator: React.FC = () => {
         if (event.key === "Enter") {
           console.log("enter!!!", event.currentTarget.value);
           const question = event.currentTarget.value;
-          mutate({ question });
+          mutate({ question, ownerToken: "" });
           event.currentTarget.value = "";
         }
       }}
