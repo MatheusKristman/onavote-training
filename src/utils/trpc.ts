@@ -2,15 +2,6 @@ import { httpBatchLink } from "@trpc/client";
 import { createTRPCNext } from "@trpc/next";
 import type { AppRouter } from "../backend/router";
 import superjson from "superjson";
-import { uneval } from "devalue";
-
-export const transformer = {
-  input: superjson,
-  output: {
-    serialize: (object: any) => uneval(object),
-    deserialize: (object: any) => eval(`${object}`),
-  },
-};
 
 function getBaseUrl() {
   if (typeof window !== "undefined")
@@ -32,7 +23,7 @@ function getBaseUrl() {
 export const trpc = createTRPCNext<AppRouter>({
   config({ ctx }) {
     return {
-      transformer,
+      transformer: superjson,
       links: [
         httpBatchLink({
           /**

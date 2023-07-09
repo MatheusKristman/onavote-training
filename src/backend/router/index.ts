@@ -1,12 +1,12 @@
 import { z } from "zod";
 import { procedure, router } from "../../server/trpc";
 import { prisma } from "../../db/client";
-import { transformer } from "../../utils/trpc";
 import { initTRPC, mergeRouters } from "@trpc/server";
 import { questionRouter } from "./questions";
+import SuperJSON from "superjson";
 
 export const t = initTRPC.create({
-  transformer,
+  transformer: SuperJSON,
 });
 
 export const appRouter = t.router({ question: questionRouter });
