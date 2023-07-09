@@ -19,6 +19,7 @@ export const questionRouter = router({
       return await prisma.pollQuestion.create({
         data: {
           question: opts.input.question,
+          options: [],
         },
       });
     }),

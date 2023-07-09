@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model PollQuestion {
@@ -16,5 +17,20 @@ model PollQuestion {
 
   endsAt DateTime?
 
-  question String @db.VarChar(191)
+  question String @db.VarChar(5000)
+
+  options Json
+  Vote    Vote[]
+}
+
+model Vote {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  choice Int
+
+  question   PollQuestion @relation(fields: [questionId], references: [id])
+  questionId String
+
+  @@index([questionId])
 }
